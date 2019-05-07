@@ -38,7 +38,7 @@ def parse_args():
 
 def socialist(info):
     output_file = open(args.output, 'w+')
-    print(message("\r\n[+] Now making a password list...", colour.green))
+    print(message("\r\n[+] Now making a password list with the info you provided...", colour.green))
 
     for n in range(1, args.combinations + 1):
         print(message("\n" + str(n) + " words combinations", colour.green))
@@ -73,8 +73,29 @@ def main():
     if more_questions == 'yes':
 
         has_partner = str(input(colour.green + "\r\n[+] Does the victim have a partner ? (yes/no) : " + colour.end))
+
+        if has_partner == 'yes':
+            partner = Profile()
+            partner.create('partner')
+            partner_info = partner.process()
+            info = info + partner_info
+
         has_father = str(input(colour.green + "\r\n[+] Does the victim have a father ? (yes/no) : " + colour.end))
+
+        if has_father == 'yes':
+            father = Profile()
+            father.create('father')
+            father_info = father.process()
+            info = info + father_info
+
         has_mother = str(input(colour.green + "\r\n[+] Does the victim have a mother ? (yes/no) : " + colour.end))
+
+        if has_mother == 'yes':
+            mother = Profile()
+            mother.create('mother')
+            mother_info = mother.process()
+            info = info + mother_info
+
         has_children = str(input(colour.green + "\r\n[+] Does the victim have children ? (yes/no) : " + colour.end))
 
         if has_children == 'yes':
@@ -91,24 +112,6 @@ def main():
                 info = info + child_info
 
                 del child
-
-        if has_partner == 'yes':
-            partner = Profile()
-            partner.create('partner')
-            partner_info = partner.process()
-            info = info + partner_info
-
-        if has_father == 'yes':
-            father = Profile()
-            father.create('father')
-            father_info = father.process()
-            info = info + father_info
-
-        if has_mother == 'yes':
-            mother = Profile()
-            mother.create('mother')
-            mother_info = mother.process()
-            info = info + mother_info
 
     socialist(info)
 
