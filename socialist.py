@@ -1,8 +1,8 @@
 from itertools import permutations
 from tqdm import tqdm
 import argparse
-import calendar
 from colour import *
+from profile import Profile
 
 __author__ = "Overwatch Heir"
 __version__ = "v1.1.0"
@@ -15,16 +15,12 @@ __banner__ = r"""
         ███████║╚██████╔╝╚██████╗██║██║  ██║███████╗██║███████║   ██║   
         ╚══════╝ ╚═════╝  ╚═════╝╚═╝╚═╝  ╚═╝╚══════╝╚═╝╚══════╝   ╚═╝ """ + '\n'
 
-colour = Colour()
-profile = {}
-info = []
-
 
 def message(text, colour_choice):
     return colour_choice + str(text) + colour.end
 
 
-def display():
+def display_banner():
     print(message(__banner__, colour.red))
     print(message('     * Version: ' + __version__ + '\n', colour.red),
           message('    * Created by: ' + __author__ + '\n', colour.red),
@@ -38,62 +34,6 @@ def parse_args():
     parser.add_argument("-c", "--combinations", default=3, type=int, help="maximum number of words combinations "
                                                                           "-- default 2")
     return parser.parse_args()
-
-
-def create_profile():
-
-    print(message("[+] Insert the information about the victim to make a dictionary\n"
-                  "[+] If you don't know all the info, just hit enter when asked!\n", colour.green))
-
-    profile["first_name"] = str(input(colour.yellow + "> First Name : " + colour.end).replace(" ", ""))
-    profile["last_name"] = str(input(colour.yellow + "> Last Name : " + colour.end).replace(" ", ""))
-
-    birthdate = input(colour.yellow + "> Birthdate (DDMMYYYY): " + colour.end).replace(" ", "")
-    while len(birthdate) != 0 and len(birthdate) != 8:
-        print(message("\r\n[-] You must enter 8 digits for birthday!", colour.yellow))
-        birthdate = input(colour.yellow + "> Birthdate (DDMMYYYY): " + colour.end).replace(" ", "")
-
-    profile["birth_day"] = str(birthdate[0:2])
-    profile["birth_month"] = str(birthdate[2:4])
-    profile["birth_year"] = str(birthdate[-4:])
-
-    profile["pet"] = str(input(colour.yellow + "> Pet Name : " + colour.end).replace(" ", ""))
-    profile["music"] = str(input(colour.yellow + "> Music Group : " + colour.end).replace(" ", ""))
-    profile["artist"] = str(input(colour.yellow + "> Music Artist : " + colour.end).replace(" ", ""))
-    profile["film"] = str(input(colour.yellow + "> Film  : " + colour.end).replace(" ", ""))
-    profile["tvshow"] = str(input(colour.yellow + "> TV Show  : " + colour.end).replace(" ", ""))
-    profile["sport"] = str(input(colour.yellow + "> Sport : " + colour.end).replace(" ", ""))
-    profile["team"] = str(input(colour.yellow + "> Sport Team: " + colour.end).replace(" ", ""))
-    profile["city"] = str(input(colour.yellow + "> City : " + colour.end).replace(" ", ""))
-    profile["food"] = str(input(colour.yellow + "> Food : " + colour.end).replace(" ", ""))
-    profile["car"] = str(input(colour.yellow + "> Car Model : " + colour.end).replace(" ", ""))
-    profile["carbrand"] = str(input(colour.yellow + "> Car Brand : " + colour.end).replace(" ", ""))
-    profile["celebrity"] = str(input(colour.yellow + "> Celebrity : " + colour.end).replace(" ", ""))
-
-
-def process_info():
-    info.append(profile["birth_day"])
-    info.append(profile["birth_month"])
-    info.append(calendar.month_name[int(profile["birth_month"])].lower())
-    info.append(calendar.month_name[int(profile["birth_month"])].capitalize())
-    info.append(calendar.month_name[int(profile["birth_month"])].upper())
-    info.append(calendar.month_abbr[int(profile["birth_month"])].lower())
-    info.append(calendar.month_abbr[int(profile["birth_month"])].capitalize())
-    info.append(calendar.month_abbr[int(profile["birth_month"])].upper())
-    info.append(profile["birth_year"])
-    info.append(profile["birth_year"][-2:])
-
-    del profile["birth_day"]
-    del profile["birth_month"]
-    del profile["birth_year"]
-
-    for value in profile.values():
-        if value != "":
-            info.append(value.upper())
-            info.append(value.lower())
-            info.append(value.capitalize())
-
-    return info
 
 
 def socialist(info):
@@ -118,8 +58,63 @@ def socialist(info):
     print(message("\r\n[+] Password list successfully created!\n", colour.green))
 
 
+def main():
+    info = []
+
+    victim = Profile()
+    victim.create('victim')
+    victim_info = victim.process()
+    info = info + victim_info
+
+    more_questions = str(input(colour.green + "\r\n[+] If you want, we will make YES or NO questions related to the "
+                                              "victim's relatives to improve the password list... "
+                                              "Do you agree ? (yes/no) : " + colour.end))
+
+    if more_questions == 'yes':
+
+        has_partner = str(input(colour.green + "\r\n[+] Does the victim have a partner ? (yes/no) : " + colour.end))
+        has_father = str(input(colour.green + "\r\n[+] Does the victim have a father ? (yes/no) : " + colour.end))
+        has_mother = str(input(colour.green + "\r\n[+] Does the victim have a mother ? (yes/no) : " + colour.end))
+        has_children = str(input(colour.green + "\r\n[+] Does the victim have children ? (yes/no) : " + colour.end))
+
+        if has_children == 'yes':
+            children_number = int(input(colour.green + "  [+] How many children has the victim ? : " + colour.end))
+
+            while children_number == 0:
+                print(message("  [-] You must enter an integer for the number of children!", colour.red))
+                children_number = int(input(colour.green + "  [+] How many children has the victim ?  : " + colour.end))
+
+            for n in range(0, children_number):
+                child = Profile()
+                child.create('child ' + str(n + 1))
+                child_info = child.process()
+                info = info + child_info
+
+                del child
+
+        if has_partner == 'yes':
+            partner = Profile()
+            partner.create('partner')
+            partner_info = partner.process()
+            info = info + partner_info
+
+        if has_father == 'yes':
+            father = Profile()
+            father.create('father')
+            father_info = father.process()
+            info = info + father_info
+
+        if has_mother == 'yes':
+            mother = Profile()
+            mother.create('mother')
+            mother_info = mother.process()
+            info = info + mother_info
+
+    socialist(info)
+
+
 if __name__ == '__main__':
-    display()
+    colour = Colour()
+    display_banner()
     args = parse_args()
-    create_profile()
-    socialist(process_info())
+    main()
