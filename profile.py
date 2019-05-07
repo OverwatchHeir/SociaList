@@ -39,15 +39,15 @@ class Profile:
 
     def birth(self):
         birthdate = input(colour.yellow + "> Birthdate (DDMMYYYY): " + colour.end)
-        if birthdate != "":
-            while len(birthdate) == 0 or len(birthdate) != 8:
-                print(self.message("\r\n[-] You must enter 8 digits for birthday!\n", colour.red))
-                birthdate = input(colour.yellow + "> Birthdate (DDMMYYYY): " + colour.end)
 
-            self.profile["birth_day"] = str(birthdate[0:2])
-            self.profile["birth_month"] = str(birthdate[2:4])
-            self.profile["birth_year"] = str(birthdate[-4:])
-            self.profile["age"] = str(self.now.year - int(birthdate[-4:]))
+        while len(birthdate) == 0 or len(birthdate) != 8:
+            print(self.message("\r\n[-] You must enter 8 digits for birthday!\n", colour.red))
+            birthdate = input(colour.yellow + "> Birthdate (DDMMYYYY): " + colour.end)
+
+        self.profile["birth_day"] = str(birthdate[0:2])
+        self.profile["birth_month"] = str(birthdate[2:4])
+        self.profile["birth_year"] = str(birthdate[-4:])
+        self.profile["age"] = str(self.now.year - int(birthdate[-4:]))
 
     def email(self):
         email_address = str(input(colour.yellow + "> Email address : " + colour.end).replace(" ", ""))
@@ -164,22 +164,12 @@ class Profile:
                 calendar.month_abbr[int(self.profile["birth_month"])].upper(),
                 self.profile["birth_year"],
                 self.profile["birth_year"][-2:],
-                self.profile["age"],
-                self.profile["phone_country"],
-                self.profile["phone_number"],
-                self.profile["floor"],
-                self.profile["street_number"],
-                self.profile["door"]]
+                self.profile["age"]]
 
         del self.profile["birth_day"]
         del self.profile["birth_month"]
         del self.profile["birth_year"]
         del self.profile["age"]
-        del self.profile["phone_country"]
-        del self.profile["phone_number"]
-        del self.profile["floor"]
-        del self.profile["street_number"]
-        del self.profile["door"]
 
         for value in self.profile.values():
             if value != "":
