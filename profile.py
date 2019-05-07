@@ -1,6 +1,9 @@
 import colour
 import datetime
 import re
+import DNS
+import phonenumbers
+from validate_email import validate_email
 from colour import *
 import calendar
 
@@ -22,40 +25,52 @@ class Profile:
         self.profile["nickname"] = str(input(colour.yellow + "> Nickname : " + colour.end).replace(" ", ""))
         self.profile["Id_number"] = str(input(colour.yellow + "> ID-Number : " + colour.end).replace(" ", ""))
 
-        religions = ['christian', 'muslim', 'jew', 'budism', 'hinduism', 'none', 'other']
-        religion_choice = str(input(colour.yellow + "> Religion (christian, muslim, jew, budism, hinduism, none, "
+    def religion(self):
+        religions = ['christianism', 'islam', 'judaism', 'budism', 'hinduism', 'none', 'other']
+        religion_choice = str(input(colour.yellow + "> Religion (christianism, islam, judaism, budism, hinduism, none, "
                                                     "other): " + colour.end).replace(" ", ""))
-        while religion_choice not in religions:
-            print(self.message("\r\n[-] You must enter one of the options above!\n", colour.red))
-            religion_choice = str(input(colour.yellow + "> Religion (christian, muslim, jew, budism, hinduism, none, "
-                                                        "other): " + colour.end).replace(" ", ""))
-        if religion_choice != 'none' or religion_choice != 'other':
-            self.profile["religion"] = religion_choice
+        if religion_choice != "":
+            while religion_choice not in religions:
+                print(self.message("\r\n[-] You must enter one of the options above!\n", colour.red))
+                religion_choice = str(input(colour.yellow + "> Religion (christianism, muslim, judaism, budism, "
+                                                            "hinduism, none, other): " + colour.end).replace(" ", ""))
+            if religion_choice != 'none' or religion_choice != 'other':
+                self.profile["religion"] = religion_choice
 
+    def birth(self):
         birthdate = input(colour.yellow + "> Birthdate (DDMMYYYY): " + colour.end)
-        while len(birthdate) == 0 or len(birthdate) != 8:
-            print(self.message("\r\n[-] You must enter 8 digits for birthday!\n", colour.red))
-            birthdate = input(colour.yellow + "> Birthdate (DDMMYYYY): " + colour.end)
+        if birthdate != "":
+            while len(birthdate) == 0 or len(birthdate) != 8:
+                print(self.message("\r\n[-] You must enter 8 digits for birthday!\n", colour.red))
+                birthdate = input(colour.yellow + "> Birthdate (DDMMYYYY): " + colour.end)
 
-        self.profile["birth_day"] = str(birthdate[0:2])
-        self.profile["birth_month"] = str(birthdate[2:4])
-        self.profile["birth_year"] = str(birthdate[-4:])
-        self.profile["age"] = str(self.now.year - int(birthdate[-4:]))
+            self.profile["birth_day"] = str(birthdate[0:2])
+            self.profile["birth_month"] = str(birthdate[2:4])
+            self.profile["birth_year"] = str(birthdate[-4:])
+            self.profile["age"] = str(self.now.year - int(birthdate[-4:]))
 
     def email(self):
         email_address = str(input(colour.yellow + "> Email address : " + colour.end).replace(" ", ""))
-        email_regex = r"(^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$)"
 
-        while not re.match(email_regex, email_address):
-            print(self.message("\r\n[-] You must enter a correct email address ( xxxx@yyyy.zzz!\n", colour.red))
-            email_address = str(input(colour.yellow + "> Email address : " + colour.end).replace(" ", ""))
+        if email_address != "":
+            while not validate_email(email_address, verify=True):
+                print(self.message("\r\n[-] Not valid! Email address does not exists!\n", colour.red))
+                email_address = str(input(colour.yellow + "> Email address : " + colour.end).replace(" ", ""))
 
-        self.profile["email_user"] = str(email_address.split('@')[0])
+            self.profile["email_user"] = str(email_address.split('@')[0])
 
     def phone(self):
-        phone = str(input(colour.yellow + "> Phone Number (+XXX.. NNNNNNNNN..) : " + colour.end))
-        self.profile["phone_country"] = str(phone.split(' ')[0])
-        self.profile["phone_number"] = str(phone.split(' ')[1])
+        phone = str(input(colour.yellow + "> Phone Number : " + colour.end))
+        if phone != "":
+            phone_parsed = phonenumbers.parse(phone, None)
+
+            while not phonenumbers.is_valid_number(phone_parsed):
+                print(self.message("\r\n[-] You must enter a correct phone number!\n", colour.red))
+                phone = str(input(colour.yellow + "> Phone Number : " + colour.end))
+                phone_parsed = phonenumbers.parse(phone, None)
+
+            self.profile["phone_country"] = str(phone_parsed.country_code)
+            self.profile["phone_number"] = str(phone_parsed.national_number)
 
     def education(self):
         self.profile["prim_school"] = str(
@@ -80,23 +95,34 @@ class Profile:
                                                 "comunist, anarchist, christian-democrat, socialdemocrat,"
                                                 "other, none ): "
                                 + colour.end).replace(" ", ""))
-        while orientation not in politics:
-            print(self.message("\r\n[-] You must enter one of the above options!\n", colour.red))
-            orientation = str(input(colour.yellow + "> Political orientation (liberal, conservative, "
-                                                    "socialist,"
-                                                    "comunist, anarchist, christian-democrat, socialdemocrat,"
-                                                    "other, none ): "
-                                    + colour.end).replace(" ", ""))
-        if orientation != 'none' or orientation != 'other':
-            self.profile["politics"] = orientation
+        if orientation != "":
+            while orientation not in politics:
+                print(self.message("\r\n[-] You must enter one of the above options!\n", colour.red))
+                orientation = str(input(colour.yellow + "> Political orientation (liberal, conservative, "
+                                                        "socialist,"
+                                                        "comunist, anarchist, christian-democrat, socialdemocrat,"
+                                                        "other, none ): "
+                                        + colour.end).replace(" ", ""))
+            if orientation != 'none' or orientation != 'other':
+                self.profile["politics"] = orientation
 
     def car(self):
         self.profile["car_model"] = str(input(colour.yellow + "> Car Model : " + colour.end).replace(" ", ""))
         self.profile["car_brand"] = str(input(colour.yellow + "> Car Brand : " + colour.end).replace(" ", ""))
         self.profile["license_plate"] = str(input(colour.yellow + "> License Plate : " + colour.end).replace(" ", ""))
 
-    def other(self):
+    def motorcycle(self):
+        self.profile["motorcycle_model"] = str(input(colour.yellow + "> Motorcycle Model : " + colour.end).replace(" ", ""))
+        self.profile["motorcycle_brand"] = str(input(colour.yellow + "> Motorcycle Brand : " + colour.end).replace(" ", ""))
+        self.profile["motorcycle_plate"] = str(input(colour.yellow + "> Motorcycle License Plate : " + colour.end).replace(" ", ""))
+
+    def work(self):
         self.profile["company"] = str(input(colour.yellow + "> Company : " + colour.end).replace(" ", ""))
+        self.profile["employee_id"] = str(input(colour.yellow + "> Employee-ID : " + colour.end).replace(" ", ""))
+        self.profile["position"] = str(input(colour.yellow + "> Position : " + colour.end).replace(" ", ""))
+
+    def hobbies(self):
+        self.profile["colour"] = str(input(colour.yellow + "> Colour : " + colour.end).replace(" ", ""))
         self.profile["pet"] = str(input(colour.yellow + "> Pet Name : " + colour.end).replace(" ", ""))
         self.profile["music"] = str(input(colour.yellow + "> Music Group : " + colour.end).replace(" ", ""))
         self.profile["artist"] = str(input(colour.yellow + "> Music Artist : " + colour.end).replace(" ", ""))
@@ -115,13 +141,17 @@ class Profile:
                            colour.green))
 
         self.identification()
+        self.religion()
+        self.birth()
         self.email()
         self.phone()
         self.education()
         self.address()
         self.politics()
         self.car()
-        self.other()
+        self.motorcycle()
+        self.work()
+        self.hobbies()
 
     def process(self):
         info = [self.profile["birth_day"],

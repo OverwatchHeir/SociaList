@@ -13,6 +13,9 @@ Requirements
 -------------------
   - python 3
   - tqdm
+  - phonenumbers
+  - validate_email
+  - py3dns
   
 Installation
 -------------

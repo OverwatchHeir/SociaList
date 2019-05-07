@@ -15,6 +15,8 @@ __banner__ = r"""
         ███████║╚██████╔╝╚██████╗██║██║  ██║███████╗██║███████║   ██║   
         ╚══════╝ ╚═════╝  ╚═════╝╚═╝╚═╝  ╚═╝╚══════╝╚═╝╚══════╝   ╚═╝ """ + '\n'
 
+info = []
+
 
 def message(text, colour_choice):
     return colour_choice + str(text) + colour.end
@@ -36,7 +38,16 @@ def parse_args():
     return parser.parse_args()
 
 
-def socialist(info):
+def add_profile(name):
+    profile = Profile()
+    profile.create(name)
+    profile_info = profile.process()
+    info.extend(profile_info)
+
+    del profile
+
+
+def socialist(data):
     output_file = open(args.output, 'w+')
     print(message("\r\n[+] Now making a password list with the info you provided...", colour.green))
 
@@ -59,12 +70,7 @@ def socialist(info):
 
 
 def main():
-    info = []
-
-    victim = Profile()
-    victim.create('victim')
-    victim_info = victim.process()
-    info = info + victim_info
+    add_profile('victim')
 
     more_questions = str(input(colour.green + "\r\n[+] If you want, we will make YES or NO questions related to the "
                                               "victim's relatives to improve the password list... "
@@ -75,26 +81,30 @@ def main():
         has_partner = str(input(colour.green + "\r\n[+] Does the victim have a partner ? (yes/no) : " + colour.end))
 
         if has_partner == 'yes':
-            partner = Profile()
-            partner.create('partner')
-            partner_info = partner.process()
-            info = info + partner_info
+            add_profile('partner')
+
+        has_expartners = str(
+            input(colour.green + "\r\n[+] Does the victim have a expartners ? (yes/no) : " + colour.end))
+
+        if has_expartners == 'yes':
+            expartners_number = int(input(colour.green + "  [+] How many expartners has the victim ? : " + colour.end))
+            while expartners_number == 0:
+                print(message("  [-] You must enter an integer for the number of expartners!", colour.red))
+                expartners_number = int(
+                    input(colour.green + "  [+] How many expartners has the victim ?  : " + colour.end))
+
+            for n in range(0, expartners_number):
+                add_profile('expartner ' + str(n + 1))
 
         has_father = str(input(colour.green + "\r\n[+] Does the victim have a father ? (yes/no) : " + colour.end))
 
         if has_father == 'yes':
-            father = Profile()
-            father.create('father')
-            father_info = father.process()
-            info = info + father_info
+            add_profile('father')
 
         has_mother = str(input(colour.green + "\r\n[+] Does the victim have a mother ? (yes/no) : " + colour.end))
 
         if has_mother == 'yes':
-            mother = Profile()
-            mother.create('mother')
-            mother_info = mother.process()
-            info = info + mother_info
+            add_profile('mother')
 
         has_children = str(input(colour.green + "\r\n[+] Does the victim have children ? (yes/no) : " + colour.end))
 
@@ -106,12 +116,7 @@ def main():
                 children_number = int(input(colour.green + "  [+] How many children has the victim ?  : " + colour.end))
 
             for n in range(0, children_number):
-                child = Profile()
-                child.create('child ' + str(n + 1))
-                child_info = child.process()
-                info = info + child_info
-
-                del child
+                add_profile('child ' + str(n + 1))
 
     socialist(info)
 
