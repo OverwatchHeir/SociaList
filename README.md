@@ -30,7 +30,7 @@ Installation
  ```
  brew install python3
  brew install pip
- git clone https://github.com/OverwatchHeir/SociaList/
+ git clone https://github.com/OverwatchHeir/SociaList.git
  cd SociaList
  python3 -m pip install -r requirements.txt
  ```
@@ -38,7 +38,7 @@ Installation
  
  Download python 3 and pip from [python webpage] and then: 
  ```
- git clone https://github.com/OverwatchHeir/SociaList/
+ git clone https://github.com/OverwatchHeir/SociaList.git
  cd SociaList
  python3 -m pip install -r requirements.txt
  ```
