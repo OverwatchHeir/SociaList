@@ -21,7 +21,7 @@ Installation
 
  ```
  apt-get install python3-pip
- git clone https://github.com/OverwatchHeir/SociaList/
+ git clone https://github.com/OverwatchHeir/SociaList.git
  cd SociaList
  python3 -m pip install -r requirements.txt
  ```
