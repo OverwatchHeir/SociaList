@@ -1,11 +1,10 @@
 import argparse
-from utils.colour import Colour
+from termcolor import colored
 
 
 class Cli:
 
     def __init__(self):
-        self.colour = Colour()
         self.author = "Overwatch Heir"
         self.version = "v1.1.0"
 
@@ -18,14 +17,11 @@ class Cli:
                 ███████║╚██████╔╝╚██████╗██║██║  ██║███████╗██║███████║   ██║   
                 ╚══════╝ ╚═════╝  ╚═════╝╚═╝╚═╝  ╚═╝╚══════╝╚═╝╚══════╝   ╚═╝ """ + '\n'
 
-    def message(self, text, colour_choice):
-        return colour_choice + str(text) + self.colour.end
-
     def banner(self):
-        print(self.message(self.logo, self.colour.red))
-        print(self.message('     * Version: ' + self.version + '\n', self.colour.red),
-              self.message('    * Created by: ' + self.author + '\n', self.colour.red),
-              self.message("    * Take a look at README.md file for more info about the program\n", self.colour.red))
+        print(colored(self.logo, 'red'))
+        print(colored('     * Version: ' + self.version + '\n', 'red'))
+        print(colored('    * Created by: ' + self.author + '\n', 'red'))
+        print(colored("    * Take a look at README.md file for more info about the program\n", 'red'))
 
     def parse_args(self):
         parser = argparse.ArgumentParser()
