@@ -3,6 +3,7 @@ from tqdm import tqdm
 import argparse
 from colour import *
 from profile import Profile
+import string
 
 __author__ = "Overwatch Heir"
 __version__ = "v1.1.0"
@@ -47,7 +48,7 @@ def add_profile(name):
     del profile
 
 
-def socialist(data):
+def socialist():
     output_file = open(args.output, 'w+')
     print(message("\r\n[+] Now making a password list with the info you provided...", colour.green))
 
@@ -59,12 +60,9 @@ def socialist(data):
             if n == 1:
                 output_file.write(''.join(group) + "\n")
             else:
-                output_file.write('.'.join(group) + "\n")
-                output_file.write('_'.join(group) + "\n")
-                output_file.write('$'.join(group) + "\n")
-                output_file.write('%'.join(group) + "\n")
-                output_file.write('&'.join(group) + "\n")
-                output_file.write('-'.join(group) + "\n")
+                for element in string.punctuation:
+                    output_file.write(element.join(group) + "\n")
+                    output_file.write(element.join(group) + "\n")
 
     print(message("\r\n[+] Password list successfully created!\n", colour.green))
 
@@ -118,7 +116,7 @@ def main():
             for n in range(0, children_number):
                 add_profile('child ' + str(n + 1))
 
-    socialist(info)
+    socialist()
 
 
 if __name__ == '__main__':
