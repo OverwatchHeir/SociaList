@@ -8,7 +8,7 @@ class Cli:
         self.author = "Overwatch Heir"
         self.version = "v1.1.0"
 
-        self.logo = r"""
+        self.banner = r"""
 
                 ███████╗ ██████╗  ██████╗██╗ █████╗ ██╗     ██╗███████╗████████╗
                 ██╔════╝██╔═══██╗██╔════╝██║██╔══██╗██║     ██║██╔════╝╚══██╔══╝
@@ -18,10 +18,10 @@ class Cli:
                 ╚══════╝ ╚═════╝  ╚═════╝╚═╝╚═╝  ╚═╝╚══════╝╚═╝╚══════╝   ╚═╝ """ + '\n'
 
     def banner(self):
-        print(colored(self.logo, 'red'))
-        print(colored('     * Version: ' + self.version + '\n', 'red'))
-        print(colored('    * Created by: ' + self.author + '\n', 'red'))
-        print(colored("    * Take a look at README.md file for more info about the program\n", 'red'))
+        print(colored(self.banner, 'red'))
+        print(colored('             * Version: ' + self.version, 'red'))
+        print(colored('             * Created by: ' + self.author, 'red'))
+        print(colored("             * Take a look at README.md file for more info about the program\n", 'red'))
 
     def parse_args(self):
         parser = argparse.ArgumentParser()
