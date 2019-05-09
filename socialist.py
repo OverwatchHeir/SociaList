@@ -90,6 +90,6 @@ def socialist():
 
 if __name__ == '__main__':
     cli = Cli()
-    cli.banner()
+    cli.display_banner()
     args = cli.parse_args()
     socialist()

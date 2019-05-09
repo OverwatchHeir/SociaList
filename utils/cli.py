@@ -17,7 +17,7 @@ class Cli:
                 ███████║╚██████╔╝╚██████╗██║██║  ██║███████╗██║███████║   ██║   
                 ╚══════╝ ╚═════╝  ╚═════╝╚═╝╚═╝  ╚═╝╚══════╝╚═╝╚══════╝   ╚═╝ """ + '\n'
 
-    def banner(self):
+    def display_banner(self):
         print(colored(self.banner, 'red'))
         print(colored('             * Version: ' + self.version, 'red'))
         print(colored('             * Created by: ' + self.author, 'red'))
