@@ -1,4 +1,7 @@
-# SociaList
+# SociaList - Passwordlist tool based on Social Engineering
+
+SociaList is an open-source tool dedicated to the creation of password lists based on information 
+collected through social engineering.
 
 What is social engineering?
 ---------------------------
