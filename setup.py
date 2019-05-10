@@ -19,7 +19,7 @@ setup(
     version=cli.version,
     long_description = long_description,
     url='https://github.com/OverwatchHeir/SociaList',
-    downloa_url='https://github.com/OverwatchHeir/SociaList/archive/master.zip',
+    download_url='https://github.com/OverwatchHeir/SociaList/archive/master.zip',
     author='OverwatchHeir',
     install_requires=['tdqm', 'phonenumbers', 'validate_email', 'py3dns'],
     classifiers = [
