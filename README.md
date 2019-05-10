@@ -1,8 +1,5 @@
 # SociaList - Passwordlist tool based on Social Engineering
 
-.. image:: https://img.shields.io/github/issues/badges/shields.svg
-      :target: https://github.com/OverwatchHeir/SociaList/issues
-
 SociaList is an open-source tool dedicated to the creation of password lists based on information 
 collected through social engineering.
 
@@ -68,7 +65,7 @@ Usage
 
 **Run**
 
-``` python3 socialist.py [-h] -o OUTPUT [-c COMBINATIONS]```
+```$ python3 socialist.py [-h] -o OUTPUT [-c COMBINATIONS]```
 
 At the beginning of the execution of this script, you will be asked for a series of personal information about which you intend to create the list of passwords. From the personal data entered by keyboard, combinations and permutations will be made according to those entered in the arguments.
  
