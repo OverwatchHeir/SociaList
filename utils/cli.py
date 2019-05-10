@@ -6,7 +6,7 @@ class Cli:
 
     def __init__(self):
         self.author = "Overwatch Heir"
-        self.version = "v1.1.0"
+        self.version = "1.1.0"
 
         self.banner = r"""
 
