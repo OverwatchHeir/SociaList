@@ -1,7 +1,7 @@
 from itertools import permutations
 from tqdm import tqdm
-from cli import *
-from profile import Profile
+from socialist.cli import *
+from socialist.profile import Profile
 import string
 
 
@@ -17,7 +17,7 @@ def add_profile(name):
     del profile
 
 
-def run():
+def socialist(args):
     output_file = open(args.output, 'w+')
     print(colored("\r\n[+] Now making a password list with the info you provided...", 'green'))
 
@@ -36,7 +36,11 @@ def run():
     print(colored("\r\n[+] Password list successfully created!\n", 'green'))
 
 
-def socialist():
+def main():
+
+    cli = Cli()
+    cli.display_banner()
+
     add_profile('victim')
 
     more_questions = str(input(colored("\r\n[+] If you want, we will make YES or NO questions related to the "
@@ -85,11 +89,8 @@ def socialist():
             for n in range(0, children_number):
                 add_profile('child ' + str(n + 1))
 
-    run()
+    socialist(cli.parse_args())
 
 
 if __name__ == '__main__':
-    cli = Cli()
-    cli.display_banner()
-    args = cli.parse_args()
-    socialist()
+    main()

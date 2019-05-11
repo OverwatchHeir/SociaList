@@ -1,5 +1,5 @@
 from validate_email import validate_email
-from cli import Cli
+from socialist.cli import Cli
 from termcolor import colored
 import datetime
 import phonenumbers
