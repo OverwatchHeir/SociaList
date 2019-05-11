@@ -57,6 +57,7 @@ Installation
  pip3 install phonenumbers
  pip3 install validate_email
  pip3 install py3dns
+ pip3 install termcolor
  pip3 install socialist
  socialist # installed successfully
  ```
