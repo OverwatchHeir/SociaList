@@ -7,7 +7,7 @@
 from codecs import open
 from os.path import abspath, dirname, join
 from setuptools import setup
-from utils.cli import Cli
+from cli import Cli
 
 cli = Cli()
 this_dir = abspath(dirname(__file__))

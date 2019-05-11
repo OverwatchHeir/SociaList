@@ -1,6 +1,6 @@
 from itertools import permutations
 from tqdm import tqdm
-from utils.cli import *
+from cli import *
 from profile import Profile
 import string
 
