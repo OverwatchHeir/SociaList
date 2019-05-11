@@ -21,6 +21,7 @@ setup(
     url='https://github.com/OverwatchHeir/SociaList',
     download_url='https://github.com/OverwatchHeir/SociaList/archive/master.zip',
     author='OverwatchHeir',
+    author_email='softw.dev@protonmail.com',
     install_requires=['tdqm', 'phonenumbers', 'validate_email', 'py3dns'],
     classifiers = [
         'Topic :: Utilities',
