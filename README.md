@@ -19,6 +19,7 @@ Requirements
   - phonenumbers
   - validate_email
   - py3dns
+  - termcolor
   
 Installation
 -------------
