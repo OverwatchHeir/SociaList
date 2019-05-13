@@ -27,28 +27,18 @@ Installation
 
  ```
  apt-get install python3-pip
- git clone https://github.com/OverwatchHeir/SociaList.git
- cd SociaList
- python3 -m pip install -r requirements.txt
  ```
  
 **MacOS**
  ```
  brew install python3
  brew install pip
- git clone https://github.com/OverwatchHeir/SociaList.git
- cd SociaList
- python3 -m pip install -r requirements.txt
  ```
  **Windows**
  
  Download python 3 and pip from [python webpage] and then: 
- ```
- git clone https://github.com/OverwatchHeir/SociaList.git
- cd SociaList
- python3 -m pip install -r requirements.txt
- ```
- **Alternative**
+ 
+ **Then**
  
  Using the traditional installation from **pip** or **easy_install**
  ```
