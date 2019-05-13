@@ -53,11 +53,6 @@ Installation
  Using the traditional installation from **pip** or **easy_install**
  ```
  easy_install3 -U pip # you have to install python3-setuptools , update pip
- pip3 install tqdm
- pip3 install phonenumbers
- pip3 install validate_email
- pip3 install py3dns
- pip3 install termcolor
  pip3 install socialist
  socialist # installed successfully
  ```
