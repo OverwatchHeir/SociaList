@@ -16,6 +16,7 @@ setup(
     name='socialist',
     version='0.1.0',
     long_description=long_description,
+    long_description_content_type="text/markdown",
     url='https://github.com/OverwatchHeir/SociaList',
     download_url='https://github.com/OverwatchHeir/SociaList/archive/master.zip',
     author='OverwatchHeir',
@@ -25,7 +26,8 @@ setup(
         'tqdm',
         'phonenumbers',
         'validate_email',
-        'py3dns'
+        'py3dns',
+        'termcolor'
     ],
     classifiers=[
         'Topic :: Utilities',
